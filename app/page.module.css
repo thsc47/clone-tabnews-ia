@@ -1,0 +1,108 @@
+.page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 48px 24px;
+  background: radial-gradient(ellipse at top, #27271f 0, #151715 65%);
+  color: #faf6eb;
+}
+
+.content {
+  width: 100%;
+  max-width: 760px;
+  text-align: center;
+}
+
+.brand {
+  display: block;
+  margin-bottom: 64px;
+  color: #b8bcb3;
+  font-family: monospace;
+  font-size: 18px;
+}
+
+.brand span {
+  color: #faf6eb;
+  font-weight: 700;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 24px;
+  padding: 8px 14px;
+  border: 1px solid #66572f;
+  border-radius: 999px;
+  color: #f6c453;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.content h1 {
+  margin: 0 0 24px;
+  font-size: clamp(42px, 8vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+}
+
+.content h1 span { color: #f6c453; }
+
+.description {
+  max-width: 610px;
+  margin: 0 auto;
+  color: #b8bcb3;
+  font-size: clamp(17px, 2.5vw, 20px);
+  line-height: 1.75;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-height: 155px;
+  margin: 36px 0 28px;
+  border-top: 1px solid #35382f;
+  border-bottom: 1px solid #35382f;
+  color: #d7d9d1;
+}
+
+.count {
+  font-size: clamp(36px, 6vw, 48px);
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat small { color: #a2a89b; font-size: 12px; }
+.unavailable { line-height: 1.7; }
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 48px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  background: #f6c453;
+  color: #171914;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link:hover { background: #ffda7e; }
+.link:active { background: #e9b341; }
+.link:focus-visible { outline: 3px solid #faf6eb; outline-offset: 5px; }
+
+.footer {
+  margin: 48px 0 0;
+  color: #a2a89b;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .brand { margin-bottom: 40px; }
+  .page { padding: 32px 20px; }
+}
