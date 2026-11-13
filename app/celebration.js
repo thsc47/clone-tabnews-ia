@@ -1,27 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Confetti from "react-confetti";
+import dynamic from "next/dynamic";
+
+const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
+
+const COLORS = ["#f6c453", "#faf6eb", "#86b6a0", "#e38b65"];
+const STYLE = { position: "fixed", inset: 0, pointerEvents: "none", zIndex: 1 };
 
 export default function Celebration() {
   const [viewport, setViewport] = useState(null);
   const [finished, setFinished] = useState(false);
 
+  // Animação única e curta: lê o viewport uma vez, sem listeners de resize.
   useEffect(() => {
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    function updateViewport() {
-      setViewport(preference.matches ? null : {
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduceMotion) {
+      setViewport({ width: window.innerWidth, height: window.innerHeight });
     }
-    updateViewport();
-    window.addEventListener("resize", updateViewport);
-    preference.addEventListener("change", updateViewport);
-    return () => {
-      window.removeEventListener("resize", updateViewport);
-      preference.removeEventListener("change", updateViewport);
-    };
   }, []);
 
   if (!viewport || finished) return null;
@@ -33,10 +29,10 @@ export default function Celebration() {
       numberOfPieces={180}
       recycle={false}
       gravity={0.18}
-      colors={["#f6c453", "#faf6eb", "#86b6a0", "#e38b65"]}
+      colors={COLORS}
       onConfettiComplete={() => setFinished(true)}
       aria-hidden="true"
-      style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 1 }}
+      style={STYLE}
     />
   );
 }

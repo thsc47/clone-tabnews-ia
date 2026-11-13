@@ -2,17 +2,17 @@ import { Suspense } from "react";
 import Celebration from "./celebration";
 import styles from "./page.module.css";
 
-export const dynamic = "force-dynamic";
+const DIGITS_ONLY = /^\d+$/;
 
 async function ContentCount() {
   let total = null;
   try {
     const response = await fetch(
       "https://www.tabnews.com.br/api/v1/contents?per_page=1&strategy=new",
-      { cache: "no-store", signal: AbortSignal.timeout(8000) },
+      { next: { revalidate: 60 }, signal: AbortSignal.timeout(8000) },
     );
     const value = response.headers.get("x-pagination-total-rows");
-    if (!response.ok || value === null || !/^\d+$/.test(value)) {
+    if (!response.ok || value === null || !DIGITS_ONLY.test(value)) {
       throw new Error("Resposta inválida da API do TabNews");
     }
     total = Number(value);
@@ -35,7 +35,7 @@ async function ContentCount() {
         <>
           <strong className={styles.count}>{total.toLocaleString("pt-BR")}</strong>
           <span>conteúdos publicados no TabNews</span>
-          <small>Consultado na API pública a cada acesso</small>
+          <small>Consultado na API pública, atualizado a cada minuto</small>
         </>
       )}
     </div>
